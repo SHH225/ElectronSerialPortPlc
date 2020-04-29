@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>工业虚拟仿真实验平台</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="index.53d5b82.css" rel="stylesheet"></head>
+
+<body oncontextmenu="doNothing()">
+
+  <!-- 顶部任务栏 -->
+
+  <div class="topbar">
+    <ul class="nav f_l">
+      <li>
+        <a href="javascript:;" title="首页" class="home">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACBElEQVRoQ+2WMWgVQRRFzzWtVtqmMZ1gZWMTsLQwgk0QQRuNplCwEFKZQgtBKyMiiIKKaCMiNtFOsNPOws7Oxs7KSrhhdQNmk/0zs//9hMj89t+57573ZmZH7PKfdnl+KsBOT7BO4L+egO1bwB5JS5MCndgWsv0AWGyDP5K0MAmIcADb+4CHwOlO4NfAeUk/I0FCAWxPt+GP94T8AFyQ9C0KIgzA9uE2/NFEuC/AgqRPERAhALZngSfAwcxQ34GLklYz9b2ysQFszwEvgL2FYX4BlyQ9L1y3QT4WgO2zwLNxAgBXJd0d6jEYwPYVYGVo4c66m5KWh3gNArB9HbgxpOCINfclXS71LAawfQ8oLpQZ7KWkM5naP7JsANtT7WGdLykwQPseOCHpd87aLADb+4FXwLEc0wDNZ2BO0o+UVxLA9gzwFjiUMgv+v/lan5T0dZTvSADbR4B3wIHgcLl2zbupgfjYt6AXwHbznhn7S5mbNKE7JenNVpotAWyfA54GFY+yaR6Bj7tmmwBsXwPuRFUN9lmSdPtfz+QhXhfbdnCYkXaSsrJliZpKFaBwfHUC3YblbqFU56J81vOFn4EK0LY21Yg6gd63SeL+rmeg07l6iDc9ruoW+tuSegvVL3HPPbtj12jhY3Lb5NnX6LYlKixUAQobFi6vEwhvaaFhnUBhw8Lla4Tg0jERpv07AAAAAElFTkSuQmCC" data-key="home">
+        </a>
+      </li>
+      <li>
+        <a href="javascript:;" class="nav_item">文件</a>
+        <ul class="submenu">
+          <li><a href="javascript:;" data-key="new">新建</a></li>
+          <li><a href="javascript:;" data-key="myScenes">打开</a></li>
+          <li><a href="javascript:;" class="divider" data-key="save">保存</a></li>
+          <li><a href="javascript:;" data-key="saveAs">另存为</a></li>
+          <li><a href="javascript:;" class="divider"  data-key="exit">退出</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:;" class="nav_item" data-key="plc">PLC</a>
+      </li>
+      <li>
+        <a href="javascript:;" class="nav_item">视图</a>
+        <ul class="submenu">
+          <li>
+            <a href="javascript:;" class="tool_check" data-key="showToolBox" id="checkToolBox">工具箱</a>
+          </li>
+          <li>
+            <a href="javascript:;" class="tool_check" data-key="showParam" id="checkParamModel">模型参数</a>
+          </li>
+          <li>
+            <a href="javascript:;" class="tool_check" data-key="showProp">属性</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav nav_tool f_r">
+      <li>
+        <a href="javascript:;" class="tool_start" title="模拟" data-key="simulate"></a>
+      </li>
+      <li>
+        <a href="javascript:;" class="tool_stop" title="暂停" data-key="pausesim"></a>
+      </li>
+      <li>
+        <a href="javascript:;" class="tool_reset" title="重置" data-key="reset"></a>
+      </li>
+      <li>
+        <a href="javascript:;" class="tool_user" title="相机视角（第一人称）" data-key="view"></a>
+      </li>
+      <li>
+        <a href="javascript:;" class="tool_param" title="模型参数" data-key="showParam"></a>
+      </li>
+      <li>
+        <a href="javascript:;" class="tool_app" title="工具箱" data-key="showToolBox"></a>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- 顶部任务栏 -->
+
+  <!-- 工具栏 -->
+
+  <div id="toolbox">
+    <div class="select_box">
+      <div class="select_inner">
+        <input type="text" id="toolSelect" class="input" value="所有" readonly />
+      </div>
+      <ul class="select_option">
+        <li data-key="1">All</li>
+        <li data-key="2">Items</li>
+        <li data-key="3">Heavy Load Parts</li>
+        <li data-key="4">Light Load Parts</li>
+        <li data-key="5">Sensors</li>
+        <li data-key="6">Opeartors</li>
+      </ul>
+    </div>
+    <input type="text" id="toolSearch"  class="input" placeholder="搜索"/>
+    <div id="toolContainer">
+      <div class="model_block">
+        <div class="img_block"><img onclick="addBox(0)" src="images/box.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addBox(1)" src="images/Fbox.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addBox(2)" src="images/Lbox.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addWall()" src="images/mobile_wall.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addLight()" src="images/light.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('Roboticarm')" src="images/shh_Roboticarm.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('jichuang_all')" src="images/jichuang_all.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('turntable')" src="images/shh_turnable.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('converyer1')" src="images/shh_convery1.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('convery')" src="images/shh_convery.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('slide')" src="images/shh_slide.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('convery_longer')" src="images/convery_longer.png"/></div>
+      </div>
+      <div class="model_block">
+        <div class="img_block"><img onclick="addimportmodel('mesh')" src="images/mesh.png"/></div>
+      </div>
+
+    </div>
+  </div>
+  
+  <!-- 工具栏 -->
+
+  <div id="container"></div>
+<!--  <div id="Stats-output"></div>-->
+  <ul class="submenu" id="rightbox">
+    <li><a href="javascript:;" onclick="rotate_mv()">旋转</a></li>
+    <li><a href="javascript:;" onclick="vertical_mv()">垂直</a></li>
+    <li><a href="javascript:;" class="divider" onclick="cloneModel()">复制</a></li>
+    <li><a href="javascript:;" onclick="deleteModel()">删除</a></li>
+    <li><a href="javascript:;" class="divider">属性</a></li>
+    <li><a href="javascript:;" onclick="change_color()">信号</a></li>
+  </ul>
+  <div class="boxmenu" id="boxSet">
+    <input type="button" value="isBoxMove" id="isBoxMove" /><br>
+    x: <input type="text" name="x" value="0" id="boxX"/><br>
+    y: <input type="text" name="y" value="0" id="boxY"/><br>
+    z: <input type="text" name="z" value="10" id="boxZ"/><br>
+  </div>
+  <!-- 模块参数 -->
+  <div class="model" id="paramModel">
+    <table class="param_table">
+      <tr>
+        <td>Belt Conveyor(2m)1</td>
+        <td><span>|</span></td>
+        <td><span>-</span></td>
+        <td><span title="delete">&times;</span></td>
+      </tr>
+      <tr>
+        <td>Belt Conveyor(2m)1</td>
+        <td><span>|</span></td>
+        <td><span>-</span></td>
+        <td><span title="delete">&times;</span></td>
+      </tr>
+      <tr>
+        <td>Belt Conveyor(2m)1</td>
+        <td><span>|</span></td>
+        <td><span>-</span></td>
+        <td><span title="delete">&times;</span></td>
+      </tr>
+      <tr>
+        <td>Belt Conveyor(2m)1</td>
+        <td><span>|</span></td>
+        <td><span>-</span></td>
+        <td><span title="delete">&times;</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 欢迎页 -->
+  <div class="full_model" id="homeModel">
+    <div class="model_l">
+      <p class="model_title" data-key="closeModel">WELCOME</p>
+      <ul class="model_nav">
+        <li><a href="javascript:;" data-key="new">新建</a></li>
+        <li><a href="javascript:;" data-key="myScenes">打开</a></li>
+        <li><a href="javascript:;" data-key="scenes">场景</a></li>
+      </ul>
+    </div>
+    <div class="model_r">
+      
+    </div>
+  </div>
+
+  <!-- 场景页 -->
+  <div class="full_model" id="sceneModel">
+    <div class="model_l">
+      <p class="model_title" data-key="closeModel">OPEN SCENE</p>
+      <ul class="model_nav">
+        <li><a href="javascript:;" class="scene_type" id="myScenes" data-key="myScenes">我的场景</a></li>
+        <li><a href="javascript:;" class="scene_type" id="scenes" data-key="scenes">预设场景</a></li>
+      </ul>
+    </div>
+    <div class="model_r">
+      <div class="scene_container" id="myScenesContainer">
+        <p class="scene_desc">我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景我的场景</p>
+        <div class="scene_box" id="myScenesBox">
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="scene_container" id="scenesContainer">
+        <p class="scene_desc">预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景预设场景</p>
+        <div class="scene_box" id="preScenesBox">
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+          <div class="scene_item">
+            <img src="images/scene-01.png">
+            <a href="javascript:;">1 - From A to B</a>
+            <p>Transport a box until it reaches a sensor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLC -->
+  <div class="full_model" id="plcModel">
+    <div class="plc_inner">
+      <div class="plc_header clear">
+        <p class="model_title" data-key="closeModel">DRIVER</p>
+        <div class="select_box">
+          <div class="select_inner">
+            <input type="text" id="methodSelect" class="input" value="Allen-Brendly Micro800" readonly />
+          </div>
+          <ul class="select_option">
+            <li data-key="1">All</li>
+            <li data-key="2">Items</li>
+            <li data-key="3">Heavy Load Parts</li>
+            <li data-key="4">Light Load Parts</li>
+            <li data-key="5">Sensors</li>
+            <li data-key="6">Opeartors</li>
+          </ul>
+        </div>
+      </div>
+      <div class="plc_body clear">
+        <div class="plc_l">
+          <p>SENSORS</p>
+          <ul>
+            <li class="status_g">FACTORY I/O (Paused)</li>
+            <li class="status_g">FACTORY I/O (Reset)</li>
+            <li class="status_g">FACTORY I/O (Running)</li>
+            <li class="status_b">FACTORY I/O (Time Scale)</li>
+          </ul>
+        </div>
+        <div class="plc_r">
+          <p class="plc_host">Host: not defined</p>
+          <ul class="plc_bool">
+            <li>
+              <span class="bool_in status_g">BOOL_IN_0</span>
+              <span class="bool_out status_g">BOOL_OUT_0</span>
+            </li>
+            <li>
+              <span class="bool_in status_b">BOOL_IN_1</span>
+              <span class="bool_out status_b">BOOL_OUT_1</span>
+            </li>
+            <li>
+              <span class="bool_in status_y">BOOL_IN_2</span>
+              <span class="bool_out status_y">BOOL_OUT_2</span>
+            </li>
+            <li>
+              <span class="bool_in status_y">BOOL_IN_3</span>
+              <span class="bool_out status_y">BOOL_OUT_3</span>
+            </li>
+            <li>
+              <span class="bool_in status_y">BOOL_IN_3</span>
+              <span class="bool_out status_y">BOOL_OUT_3</span>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--    scene init-->
+  <script type="text/javascript" src="./assets/js/factoryScene.js"></script>
+  <!-- 3d   model import-->
+  <script type="text/javascript" src="./assets/js/modelAdd.js"></script>
+  <!--    camera viewcontrol-->
+  <script type="text/javascript" src="./assets/js/viewPointControl.js"></script>
+  <!--    model movement-->
+  <script type="text/javascript" src="./assets/js/modelMotion.js"></script>
+  <script type="text/javascript" src="./assets/js/stats.js"></script>
+  <script type="text/javascript" src="./assets/js/three.js"></script>
+  <!--    物理引擎-->
+  <script type="text/javascript" src="./assets/js/physi.js"></script>
+  <!--    场景控制-->
+  <script src="./assets/js/OrbitControls.js"></script>
+  <!--    拖拽控制-->
+  <script src="./assets/js/DragControls.js"></script>
+  <!--    辅助坐标系-->
+  <script src="./assets/js/TransformControls.js"></script>
+  <!--    外部模型导入-->
+  <script src="./assets/js/ColladaLoader.js"></script>
+  <script src="./assets/js/OBJLoader.js"></script>
+
+  <!--webPage 效果-->
+  <script src="./assets/js/page.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
+
+  <!--滚动条优化-->
+  <script type="text/javascript" src="./assets/js/jquery.nicescroll.min.js" async></script>
+  <script type="text/javascript" src='./assets/js/hashset.js'></script>
+
+  <script type="text/javascript">
+    var container, stats , controls , hiding;
+    var camera, scene;
+    var renderer;
+    var cwidth = window.innerWidth;
+    var cheight = window.innerHeight;
+    var splineHelperObjects = [];
+    var boxObjects = [];//存放box @zl
+    var modelName=new hashSet();
+
+    var boxData = [0,0,20];
+    var isBoxMove=false;
+    var positions = [];
+    var transformControl;
+    var dragcontrols;//拖拽移动
+    var is_Paused = true; //模拟暂定变量  初始界面为暂停
+    var green = new THREE.Color(0x00ff00);//green
+    var red = new THREE.Color(0xff0000);//red
+
+
+    var materials = [];//盒子贴图 @wj
+    for (var i = 0; i < 6 ; i++){
+      materials.push(new THREE.MeshPhongMaterial({
+        map: THREE.ImageUtils.loadTexture(
+                './assets/img/box/' + i +'.jpg',
+                {}),
+        overdraw: true
+      }));
+    }
+    var newBox = new THREE.BoxGeometry(50,30,40);//盒子图形 @wj
+    var newLBox = new THREE.BoxGeometry(60,25,40);
+    var newFBox = new THREE.BoxGeometry(50,50,50);
+    var to_material = new THREE.MeshPhongMaterial({color: 0x5b5b5b});//指示灯灯框图形与纹理
+    var torusGeometry = new THREE.TorusBufferGeometry(12,2,32,32);
+
+
+
+  </script>
+
+<script type="text/javascript" src="index.bundle.js"></script></body>
+</html>

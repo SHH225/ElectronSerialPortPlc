@@ -1,0 +1,11 @@
+**/node_modules
+
+dist/
+dist.tar
+dist.zip
+.DS_Store
+.vscode
+.idea
+
+yarn.lock
+package-lock.json
